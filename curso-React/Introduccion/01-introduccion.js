@@ -5,7 +5,7 @@
 import React from 'https://esm.sh/react@18.2.0'
 
 // ReactDom Importa específicamente el módulo client de react-dom.
-// API moderna de montaje (createRoot):	Para iniciar/renderizar en el DOM
+// API moderna de montaje (createRoot): Para iniciar/renderizar en el DOM
 import ReactDom from 'https://esm.sh/react-dom@18.2.0/client' // client
 
 const appDomElement = document.getElementById('app')
