@@ -1,19 +1,25 @@
 {
   "name": "curso-react",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "workspaces": [
+    "projects/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/araldev/cursos/curso-React.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "eslint": "^8.57.1",
     "standard": "^17.1.2"
   },
-  "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+  "dependencies": {
+    "pnpm": "^10.11.0"
   }
 }
