@@ -18,8 +18,5 @@
   "license": "ISC",
   "devDependencies": {
     "standard": "^17.1.2"
-  },
-  "dependencies": {
-    "pnpm": "^10.11.0"
   }
 }
