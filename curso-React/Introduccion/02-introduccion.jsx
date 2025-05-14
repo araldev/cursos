@@ -5,10 +5,10 @@
 // Añadimos expresiones poniendo la constante entre llaves: {constante}
 // Entre {llaves} solo podemos poner EXPRESIONES ¡NO! declaraciones,
 // es decir poner algo que devuelva un valor.
-const name = "Arturo";
-const element = <strong>Numero aleatorio: {Math.random}</strong>;
+const name = 'Arturo';
+const element = <strong>Numero aleatorio: {Math.random}</strong>
 
-<h1>"Hola", {name}. Te tocó el número {element}.</h1>;
+<h1>"Hola", {name}. Te tocó el número {element}.</h1>
 
 // Los atributos los escribimos en camelCase porque es javascript no html:✔️dataId | ❌data-id
-<butotn tabIndex="1"></butotn>
+<butotn tabIndex='1'></butotn>

@@ -10,9 +10,9 @@ export const WINNER_COMBOS = [
   [6, 7, 8],
   // columnas
   [0, 3, 6],
-  [1, 4 ,7],
-  [2, 5 ,8],
+  [1, 4, 7],
+  [2, 5, 8],
   // diagonales
   [0, 4, 8],
   [2, 4, 6]
-];
+]
