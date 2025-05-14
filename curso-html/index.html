@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- lo que se pone en el head no se renderiza
+    y es para darle más información a nuestra página
+    metadatos, archivos, css,  -->
+    <meta charset="utf-8"> <!-- codificación -->
+    <meta name="viewport" content="width=device-width"> <!-- el ancho de la pagina va a ser adaptable a cualquier dispositivo -->
+    <title>Portfolio de Arturo - Ingeniero de software</title> <!-- aparece en la pestaña de búsqueda y es importante para el SEO -->
+
+    <meta name="description" content="Portfolio de Arturo, 15 años
+    de experiencia como ingeniero de software"> <!-- indica la descripción que suele aparecer debajo del título al indexar la página -->
+
+    <!-- OPEN GRAPH es un conjunto de etiquetas para que cuando compartáis
+    un contenido se vea bien la imagen y el texto que muestra -->
+    <meta property="og:title" content="Portfolio de Arturo - Ingeniero de software"> <!-- si no ponemos este metadato por defecto va a hacer un fall back al title -->
+    <meta property="og:description" content="Ingeniero de software 15 años de experiencia"> <!-- lo mismo que arriba pero para la descripción -->
+    <meta property="og:image" content="/images/img1.png.png"> <!-- lo mismo pero para la imagen -->
+    <meta property="og:image:alt" content="Una fotografía de un estoico en el bosque"> <!-- lo mismo pero para la descripción de la imagen -->
+
+    <!-- para decir que esta es la página que tiene la traducción en inglés -->
+    <link rel="alternate" href="https://arturo.dev/en" hreflang="en-GB"> 
+    <!-- le estamos diciendo que es la página principal,
+    para que no la trate como duplicada -->
+    <link rel="canonical" href="https://arturo.dev">
+
+    <meta name="robots" content="index, follow"> <!-- indica si tiene que indexar la pagina y si tiene que seguir los enlaces -->
+    <meta name="theme-color" content="#09f"> 
+
+    <link rel="icon" type="png" href="/images/img1.png.png"> <!-- es el favicon -->
+
+    <style>
+        selector {            /*  comentarios */
+            propiedad: valor; /* esta línea es una declaración */
+        }
+        h1 {
+            /* color: #0099ffff; los dos ultimos digitos se le añaden para la opacidad 00=transparente ff=100% opacidad */
+            /* color: #09f; #0099ff */
+            /* color: rgba(0, 0, 0, 40%);  "legacy" */
+            color: rgb(0 0 0 / 100%);  /* "moderno" */
+            /* color: hsl(348, 83%, 44%) */
+            /* color: oklch(50% 83% 44 / 100%) */
+            /* color: transparent; */
+            border-width: 3px;
+            border-style: solid;
+            border-color: currentColor;
+            font-family: monospace;
+        }
+
+        html {
+            box-sizing: border-box; /* esto hace que el pading, border y margin no aumente el tamaño que le establecemos a la caja */
+        }                           /* por defecto es content-box */
+
+        body { 
+            background: #dbfbff;
+            color: black;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .link { /* para estilar por clase porner el punto delante de la clase */ 
+            color:red;
+        }
+
+        /* Pseudo clases: estados o situaciones especiales en las que se encuentran elementos HTML */
+        .link:hover { /* hover: puntero encima del elemento */
+            color: #09f;
+            /* border: 5px solid #09f; *//* el borde afecta al contenido */
+            outline: 5px solid #09f; /* el contorno se dibuja encima del contenido, lo que hace que no se mueva el contenido si no entra el borde */
+        }
+
+        .link:active { /* cuando se hace click */
+            outline: 5px solid red;
+        }
+        body::content
+
+        input:focus {
+            border: 1px solid yellow;
+        }
+
+        li:first-child {
+            color: pink
+        }
+
+        li:last-child {
+            color:blueviolet
+        }
+
+        #show { /* para estilar por id poner # delante de la id */
+            background-color: #09f;
+            border: 0;
+        }
+
+        .description {
+            border: 1px solid red; /* el borde no se hereda */
+        }
+
+    </style>
+    
+</head>
+    
+<body>
+    <header>
+        <h1>Portfolio de Arturo</h1>
+
+        <!-- aqui podemos integrar cualquier página web en el src=""
+         style="width: 100%; aspect-ratio: 16/9; esto hace que se 
+         adapte el video o la imagen a la resolución dinámica de la
+         pantalla -->
+        <iframe style="width: 100%; aspect-ratio: 16/9;" 
+        src="https://www.youtube-nocookie.com/embed/3nYLTiY5skU?si=eRMTdATjSoZhj_SO" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; 
+        encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen></iframe>
+
+        <nav>
+            <a class="link" href="#experiencia">Experiencia</a> <!-- enlaces internos -->
+            <a class="link" href="#proyectos">Proyectos</a>  <!-- enlaces internos -->
+            <!-- enlaces externos target=_blank para que la abra en 
+            una nueva pestaña, rel=noreferrer para no dar información
+            del usuario a la página externa -->
+            <a
+            class="link" 
+            href="https://twitch.tv/arturo"
+            target="_blank"
+            rel="noreferrer"
+            >Twitch</a>  
+        </nav>
+    </header>
+
+    <button id="show">Ver más información</button>
+
+    <script>
+        window.show.addEventListener('click', () => {
+            window.modal.showModal()
+            window.ocultar.addEventListener('click', () =>{
+                    window.modal.close()
+                })
+        })
+    </script>
+
+    <dialog id="modal">
+        <h1>¿Sabías que puedes abrir una modal así?</h1>
+        <p>¡Y es totalmente nativo!</p>
+        <button id="ocultar">Cerrar modal</button>
+    </dialog>
+
+    <!-- controls te permite añadirle controles al vídeo
+     autoplay hace que se reproduzca automáticamente 
+     el poster es para que tenga una imagen de portada -->
+    <video 
+    width="200"
+    poster="/images/img1.png.png"
+    autoplay 
+    loop 
+    muted 
+    controls 
+    src="/videos/el-secreto-estoico-para-superar-el-sufrimiento.mp4"
+    ></video>
+
+    <audio 
+    controls
+    src="/audios/lonely (1).mp3"
+    ></audio>
+
+    <!-- solo puede haber un main y es el contenido 
+    principal de nuestra página -->
+    <main> 
+
+        <p class="description">+15 años de experiencia como 
+        <strong>ingeniero de software</strong>. 
+        Creador y divulgador de programación.
+        </p>
+            
+        <h2 id="experiencia">Experiencia</h2>
+            
+        <ul>
+            <li class="list-item">Adevinta - 2022</li>
+            <li class="list-item">Hubii - 2020</li>
+            <li class="list-item">Nacencia - 2015</li>
+        </ul>
+            
+        <a download href="/images/img1.png.png"> <!-- el dowload solo funciona con recursos internos de nuestro server -->
+            <!-- hidden -->
+            <img 
+            id="foto-estoico"
+            width="300"
+            height="200"
+            title="Foto Estoico" 
+            alt="Una fotografía en el bosque" 
+            src="/images/img1.png.png"
+            loading="lazy"> <!-- loading=lazy carga la imagen solo 
+                            cuando realmente la necesita 
+                            NO USAR EN IMÁGENES QUE ESTÉN MUY ARRIBA-->
+        </a>
+            
+        <h2 id="proyectos">Proyectos realizados</h2>
+
+        <aside> <!-- aside es algo que está totalmente separado del contenido principal -->
+            <header>
+                <h3>Mis tecnologías <span>favoritas</span></h3>
+            </header>
+            <ol type="1" reversed start="10">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li value="5">JavaScript</li>
+                <li>Node.js</li>
+            </ol>
+        </aside>
+
+        <button>Haz click aquí</button>
+        
+        <!-- section se usa para abarcar secciones 
+        independientes genéricas de un documento -->
+        <section>
+            <!-- un article es cuando esa información la pones en otro 
+            lado y sigue manteniendo su sentido por si sola -->
+            <article>
+                <header>
+                    <h4>Sitio Web Corporativo</h4>
+                </header>
+                <p>
+                    Desarrollo de un sitio web corporativo con una 
+                    interfaz amigable y moderna.
+                </p>
+                <footer> <!-- parte de abajo de una sección -->
+                    <small>Tecnologías itilizadas: HTML, CSS, JavaScript, Node.js.</small> <!-- contenido anexo para dar algo de información que no sea tan importante como el resto (copyright). -->
+                </footer>
+            </article>
+        </section>
+        
+        <section>
+            <!-- un article es cuando esa información la pones en otro 
+            lado y sigue manteniendo su sentido por si sola -->
+            <article>
+                <header>
+                    <h4>Sitio Web Corporativo</h4>
+                </header>
+                <p>
+                    Desarrollo de un sitio web corporativo con una 
+                    interfaz amigable y moderna.
+                </p>
+                <footer> <!-- parte de abajo de una sección -->
+                    <small>Tecnologías itilizadas: HTML, CSS, JavaScript, Node.js.</small> <!-- contenido anexo para dar algo de información que no sea tan importante como el resto (copyright). -->
+                </footer>
+            </article>
+        </section>
+
+        <section>
+            <!-- un article es cuando esa información la pones en otro 
+            lado y sigue manteniendo su sentido por si sola -->
+            <article>
+                <header>
+                    <h4>Sitio Web Corporativo</h4>
+                    <img
+                    style="width:100%; aspect-ratio: 7/4;" 
+                    src="/images/img2.png.png" 
+                    alt="imagen de prueba"
+                    loading="lazy"> <!-- carga la imagen solo cuando realmente la necesita -->
+                </header>
+                <p>
+                    Desarrollo de un sitio web corporativo con una 
+                    interfaz amigable y moderna.
+                </p>
+                <footer> <!-- parte de abajo de una sección -->
+                    <small>Tecnologías itilizadas: HTML, CSS, JavaScript, Node.js.</small> <!-- contenido anexo para dar algo de información que no sea tan importante como el resto (copyright). -->
+                </footer>
+            </article>
+        </section>
+
+        <section>
+            <h2>Preguntas frecuentes</h2>
+            <!-- details nos permite tener una caja desplegable
+             con información escondida -->
+            <details open>
+                <summary>¿Qué estudios tienes?</summary>
+                <p>Estudié en la universidad de Vilanova una ingenieria de 
+                informática durante 5 años</p>
+            </details>
+
+            <details>
+                <summary>¿Cuáles son tus hobbies?</summary>
+                <p>Me gusta mucho el deporte por lo cual la mayoría
+                de mis hobbies son actividades deportivas como el boxeo.</p>
+            </details>
+
+            <details>
+                <summary>¿Cuáles es tu lenguaje favorito?</summary>
+                <p>El español, aunque si te refieres a programación
+                prefiero el inglés :d</p>
+            </details>
+        </section>
+
+        <section>
+            <h2>Formulario de contacto</h2>
+
+            <form method="post" action="/"> <!-- la action es la url a la que tiene que mandar todos los datos -->
+                <fieldset>  <!-- fieldset agrupación de los diferentes inputs que vamos a tener -->
+                    <legend>Información personal</legend>
+
+                    <!-- for en la etiqueta se usa para cuando
+                     clickemos en ella es como si clicáramos en
+                     el input -->
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" 
+                    placeholder="Escribe tu nombre..." required>
+                    
+                    <!-- la otra manera de hacer lo de arriba
+                     es esta: envolver / anidar el input con 
+                     el label -->
+                    <label style="display:block;">Email:
+                    <input type="email" name="email" 
+                    placeholder="Escribe tu email..." required>
+                    </label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Información adicional</legend>
+                    <div>
+                        <label>Teléfono
+                            <input type="tel" name="telefono"
+                            placeholder="Escribe tu teléfono..." 
+                            required pattern="[0-9]{9}">
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Otros</legend>
+
+                    <div>
+                        <label for="why">¿Por qué quieres contactar?</label>
+                        <select name="why" id="why">
+                            <option value="1">Trabajo</option>
+                            <option value="2">Duda</option>
+                            <option value="3">Más información</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="terms">¿Aceptas los términos?</label>
+                        <input type="checkbox" id="terms"
+                        name="terms" required>
+                    </div>
+
+                    <div>
+                        <!-- datalist es un elemento que te
+                         permite hacer un autocomplete enlazandolo con
+                         un input mediante list id y name -->
+                        <datalist id="languages">
+                            <option value="JavaScript"></option>
+                            <option value="Python"></option>
+                            <option value="Java"></option>
+                            <option value="C#"></option>
+                        </datalist>
+                        <label>
+                            ¿Con qué lenguaje quieres que te ayude?
+                            <input list="languages" name="languages">
+                        </label>
+                    </div>
+                </fieldset>
+
+                <input type="submit" value="Enviar contacto input">
+                <!-- por defecto los botones que están dentro de un
+                 formulario son de tipo submit, no hace falta
+                 especificarlo en el type -->
+                <button type="submit">Enviar contacto button</button>
+            </form>
+        </section>
+
+    </main>
+        
+    <footer>
+        Copyright @ 2025 - Se mira pero no se copia
+
+        <a href="mailto:example@gmail.com" target="_blank"
+        >Envíame un correo</a>
+        <a href="tel:+666987201"
+        target="_blank"
+        >Llamar por teléfono</a>
+        <a 
+        href="https://wa.me/34666987201/?text=tu%20texto%20personalizado"
+        target="_blank"
+        >Háblame al whatsapp</a>
+    </footer>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</body>
+
+</html>
