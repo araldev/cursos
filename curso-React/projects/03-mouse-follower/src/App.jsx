@@ -5,12 +5,16 @@ const FollowMouse = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
   // No meter dentro de un condicional un Hook, el condicional dentro del Hook
+  // useEffect(() => {}, []) ---> [] se ejecuta una vez cuando se monta el componente
+  // useEffect(() => {}, [dependencias]) ---> [dependencias] se ejecuta cuando cambia la/s dependencia/s y cuando se monta el componente
+  // useEffect(() => {}) ---> undefined: se ejecuta cada vez que se renderiza el componente
+
+  // Pointer Move
   useEffect(() => {
     console.log('effect', { enabled })
 
     const handleMove = (event) => {
       const { clientX, clientY } = event
-      console.log('handleMove', clientX, clientY)
       setPosition({ x: clientX, y: clientY })
     }
 
@@ -20,7 +24,19 @@ const FollowMouse = () => {
     // useEffect podemos devolver una función donde devolver como limpiar el efecto
     // Se ejecuta cuando se desmonta el componente y cada vez que
     // cambia la dependencia antes de ejecutar de nuevo el efecto.
-    return () => { globalThis.removeEventListener('pointermove', handleMove) }
+    return () => {
+      console.log('cleanup')
+      globalThis.removeEventListener('pointermove', handleMove)
+    }
+  }, [enabled])
+
+  // Change Body ClassName
+  useEffect(() => {
+    document.body.classList.toggle('no-cursor', enabled)
+
+    return () => {
+      document.body.classList.remove('no-cursor')
+    }
   }, [enabled])
 
   return (
