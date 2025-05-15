@@ -1,0 +1,39 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: auto;
+}
+
+ul {
+  list-style: none;
+  /* display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+  grid-template-rows: repeat(auto-fill, minmax(300px 400px)); */
+} 
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+}

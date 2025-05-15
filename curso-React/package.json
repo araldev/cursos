@@ -23,5 +23,8 @@
   },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react-swc": "3.9.0"
   }
 }
