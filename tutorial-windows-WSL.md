@@ -1,5 +1,3 @@
-tutorial_content = """
-
 # Tutorial: Cómo usar la Terminal en Windows con WSL (Windows Subsystem for Linux)
 
 ## Introducción
