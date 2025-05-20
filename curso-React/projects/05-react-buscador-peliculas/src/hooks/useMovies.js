@@ -1,27 +1,41 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { searchMovies } from '../services/movies'
 
-export function useMovies ({ search }) {
+export function useMovies ({ sort }) {
   const [movies, setMovies] = useState([])
   const [errorMovies, setErrorMovies] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const getMovies = async () => {
+  const getMovies = async ({ search }) => {
     try {
-      setMovies(null)
+      if (!search) return
+
+      setMovies([])
+      setErrorMovies(null)
       setLoading(true)
 
       // await new Promise(resolve => setTimeout(resolve, 2000)) /* Simulador de carga para que salga el loading */
 
       const newMovies = await searchMovies({ search })
-      setErrorMovies(newMovies.errorMovies)
+
+      if (!newMovies) throw new Error('Introduce una película')
+
       setMovies(newMovies.mappedMovies)
     } catch (error) {
-      setErrorMovies(error)
+      setErrorMovies(error.message)
     } finally {
       setLoading(false)
     }
   }
 
-  return { movies, getMovies, errorMovies, loading }
+  const sortedMovies = useMemo(() => {
+    if (!movies) return
+    console.log(sort)
+
+    return sort
+      ? [...movies].sort((a, b) => a.title.localeCompare(b.title))
+      : movies
+  }, [sort, movies])
+
+  return { movies: sortedMovies, getMovies, errorMovies, loading }
 }

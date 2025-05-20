@@ -12,6 +12,8 @@ export async function searchMovies ({ search }) {
       .then(listMovies => {
         const movies = listMovies.Search
         const errorMovies = listMovies.Error
+        if (listMovies.response === 'False') throw new Error(errorMovies)
+
         const mappedMovies = movies?.map(movie => {
           return {
             id: movie.imdbID,
@@ -21,7 +23,9 @@ export async function searchMovies ({ search }) {
           }
         })
 
-        return { mappedMovies, errorMovies }
+        if (!mappedMovies) throw new Error('Introduce una película')
+
+        return { mappedMovies }
       })
       .catch(error => {
         if (error instanceof TypeError) throw new Error('Se perdió la conexión')
