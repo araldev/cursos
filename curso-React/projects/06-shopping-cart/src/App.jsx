@@ -1,21 +1,17 @@
-import { useState } from 'react'
 import { Header } from './components/Header.jsx'
+import { Cart } from './components/Cart.jsx'
 import { Products } from './components/Products.jsx'
 import { Footer } from './components/Footer.jsx'
-import { useFilters } from './hooks/useFilters.js'
-import { products as initialProducts } from './mocks/products.json'
 import { IS_DEVELOPMENT } from './conifg.js'
+import { CartProvider } from './context/cart.jsx'
 
 export default function App () {
-  const [products] = useState(initialProducts)
-  const { filters, filterProducts, setFilters } = useFilters()
-  const filteredProducts = filterProducts(products)
-
   return (
-    <>
-      <Header setFilters={setFilters} />
-      <Products products={filteredProducts} />
-      {IS_DEVELOPMENT && <Footer filters={filters} />}
-    </>
+    <CartProvider>
+      <Header />
+      <Cart />
+      <Products />
+      {IS_DEVELOPMENT && <Footer />}
+    </CartProvider>
   )
 }

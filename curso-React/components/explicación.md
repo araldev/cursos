@@ -91,6 +91,8 @@ La consistencia es clave para la legibilidad.
 
 Hoy en día, los componentes funcionales son la forma más común y recomendada de escribir componentes React, usando Hooks para añadir estado y lógica.
 
+Las **Props** que se le pasa a un **componente** tienen que ser **nombradas**, es decir envueltas en un objeto, ya que React no pasa la prop que se le pasa por atributos directamente como un argumento llamado prop. En su lugar, React pasa un solo objeto de props como el primer argumento. Dentro de ese objeto de props es donde se encuentran todas las propiedades que le pasaste al componente `(como product={product})` = `{ product: { id: '...', title: '...', thumbnail: '...', etc. }` .
+
 ```js
 // 1. Importaciones necesarias (React es automático en versiones recientes, pero es buena práctica)
 import React from "react";
@@ -98,7 +100,7 @@ import "./MyComponent.css"; // Si tienes estilos específicos
 
 // 2. Definición del componente como una función flecha (o función normal)
 //    Recibe 'props' como argumento.
-export function MyComponent(props) {
+export function MyComponent({ props }) {
   // 3. Lógica del componente (Hooks, variables, funciones auxiliares)
   //    Puedes desestructurar las props para mayor legibilidad
   const { title, description } = props;
