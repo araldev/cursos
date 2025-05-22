@@ -11,6 +11,9 @@ Una buena organización es clave para la escalabilidad y el mantenimiento de pro
 - **Opción 1: Por Tipo de Componente (Común en proyectos pequeños/medianos)**
   En esta estructura, agrupas los componentes por su tipo general (ej. átomos, moléculas, organismos si usas Atomic Design, o simplemente si son genéricos o de página).
 
+**Ventajas:** Fácil de entender al inicio, los componentes reutilizables están centralizados.  
+**Desventajas:** Puede ser difícil de navegar en proyectos grandes si tienes muchos componentes en la misma carpeta.
+
 src/  
 ├── components/ # Componentes reutilizables a nivel de aplicación (átomos/moléculas)  
 │ ├── Button/  
@@ -27,14 +30,14 @@ src/
 │ ├── AboutPage.jsx  
 │ └── ProductDetailPage.jsx  
 ├── App.jsx # Componente principal  
-├── index.js # Punto de entrada de la aplicación  
+├── index.jsx # Punto de entrada de la aplicación  
 └── ...otros_archivos
-
-**Ventajas:** Fácil de entender al inicio, los componentes reutilizables están centralizados.
-**Desventajas:** Puede ser difícil de navegar en proyectos grandes si tienes muchos componentes en la misma carpeta.
 
 - **Opción 2: Por Característica / Dominio (Recomendado para proyectos medianos/grandes)**
   Esta estructura organiza los componentes basados en la funcionalidad o característica a la que pertenecen. Es más escalable porque, si necesitas trabajar en una característica, todos sus archivos están juntos.
+
+  **Ventajas:** Alta cohesión, fácil de encontrar código relacionado, ideal para equipos grandes y funcionalidades modulares.  
+  **Desventajas:** Puede parecer excesivo para proyectos muy pequeños.
 
 src/  
 ├── features/ # Agrupa componentes, hooks, etc. por característica  
@@ -53,20 +56,17 @@ src/
 │ │ ├── hooks/  
 │ │ │ └── useProducts.js  
 │ │ └── ProductsPage.jsx # Componente de página para productos  
-│ └── ShoppingCart/  
-│ ├── components/  
-│ │ ├── CartItem.jsx  
-│ │ └── ShoppingCartSummary.jsx  
-│ └── ShoppingCartPage.jsx  
+│ ├── ShoppingCart/  
+│ │ ├── components/  
+│ │ │ ├── CartItem.jsx  
+│ │ │ └── ShoppingCartSummary.jsx  
+│ │ └── ShoppingCartPage.jsx  
 ├── shared/ # Componentes verdaderamente genéricos y reutilizables en TODA la app (ej. Button, Modal)  
 │ ├── Button.jsx  
 │ └── Modal.jsx  
 ├── App.jsx  
-├── index.js  
+├── index.jsx  
 └── ...otros_archivos
-
-**Ventajas:** Alta cohesión, fácil de encontrar código relacionado, ideal para equipos grandes y funcionalidades modulares.
-**Desventajas:** Puede parecer excesivo para proyectos muy pequeños.
 
 # Nomenclatura de Archivos y Componentes
 
