@@ -1,59 +1,36 @@
-import { createContext, useState } from 'react'
+import { createContext, useReducer } from 'react'
+import { cartReducer, cartInitialState, CART_ACTION_TYPES } from '../reducers/cart'
 
 export const CartContext = createContext()
 
+function useCartReducer () {
+  const [state, dispatch] = useReducer(cartReducer, cartInitialState)
+
+  const addToCart = product => dispatch({
+    type: CART_ACTION_TYPES.ADD_TO_CART,
+    payload: product
+  })
+
+  const decreaseQuantityFromCart = product => dispatch({
+    type: CART_ACTION_TYPES.DECREASE_QUANTITY_FROM_CART,
+    payload: product
+  })
+
+  const removeFromCart = product => dispatch({
+    type: CART_ACTION_TYPES.REMOVE_FROM_CART,
+    payload: product
+  })
+
+  const clearCart = product => dispatch({ type: CART_ACTION_TYPES.CLEAR_CART })
+
+  return { state, addToCart, decreaseQuantityFromCart, removeFromCart, clearCart }
+}
+
 export function CartProvider ({ children }) {
-  const [cart, setCart] = useState([])
-
-  const addToCart = product => {
-    // Checkear si el producto está ya en el carrito
-    const productInCartIndex = cart.findIndex(item => item.id === product.id)
-
-    if (productInCartIndex >= 0) {
-      // una forma sería usando structureClone, hay que hacer una copia
-      // profunda ya que los arrays y objetos en js apuntan a una referencia
-      // entonces modificaríamos el objeto original desde la nueva constante
-      // lo cual modificaríamos el state (cart) antes de hacer el setCart
-      // y react no detectaría los cambios para rerenderizar el componente
-      const newCart = structuredClone(cart)
-      newCart[productInCartIndex].quantity += 1
-      return setCart(newCart)
-    }
-
-    // si el producto no está en el carrito
-    setCart(prevState => ([
-      ...prevState,
-      {
-        ...product,
-        quantity: 1
-      }
-    ]))
-  }
-
-  const decreaseQuantityFromCart = product => {
-    const productInCartIndex = cart.findIndex(item => item.id === product.id)
-    const productQuantity = product.quantity
-    const newCart = structuredClone(cart)
-
-    if (productQuantity > 1) {
-      newCart[productInCartIndex].quantity -= 1
-      return setCart(newCart)
-    }
-
-    const filterCart = newCart.filter(item => item.id !== product.id)
-    setCart(filterCart)
-  }
-
-  const removeFromCart = product => {
-    setCart(prevState => prevState.filter(item => item.id !== product.id))
-  }
-
-  const clearCart = product => {
-    setCart([])
-  }
+  const { state, addToCart, decreaseQuantityFromCart, removeFromCart, clearCart } = useCartReducer()
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, decreaseQuantityFromCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cart: state, addToCart, decreaseQuantityFromCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   )

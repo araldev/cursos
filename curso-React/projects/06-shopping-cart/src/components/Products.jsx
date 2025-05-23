@@ -1,12 +1,12 @@
 import './Products.css'
 import { AddToCartIcon, ClearCartIcon } from './Icons.jsx'
 import { useFilters } from '../hooks/useFilters.js'
-import { products as initialProducts } from '../mocks/products.json'
-import { useState } from 'react'
 import { useCart } from '../hooks/useCart.js'
+import { useProducts } from '../hooks/useProducts.js'
 
 export function Products () {
-  const [products] = useState(initialProducts)
+  const { products } = useProducts()
+
   const { filterProducts } = useFilters()
   const filteredProducts = filterProducts(products)
   const { cart, addToCart, removeFromCart } = useCart()
