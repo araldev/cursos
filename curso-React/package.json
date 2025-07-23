@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix"
@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "standard": "^17.1.2"
+    "standard": "17.1.2"
   },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json",
