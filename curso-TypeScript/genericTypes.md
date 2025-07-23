@@ -103,6 +103,8 @@ type EventHandlers<T> = {
 
 ## 12. Generic Utility Types (built-ins)
 
+[Docs](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+
 | Utility          | Purpose                              |
 | ---------------- | ------------------------------------ |
 | `Partial<T>`     | Make every prop optional             |
