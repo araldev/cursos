@@ -127,7 +127,9 @@ io.observe(document.querySelector("img.lazy"));
 
 // ResizeObserver – gráficos responsivos
 new ResizeObserver(([entry]) => {
-  chart.resize(entry.contentRect.width, entry.contentRect.height);
+  canvas.width = entry.contentRect.width;
+  canvas.height = entry.contentRect.height;
+  // tu código de dibujo aquí
 }).observe(canvas);
 
 // MutationObserver – reaccionar a nuevos nodos
