@@ -6,17 +6,19 @@
 
 ## 1. Métodos HTTP (verbos)
 
-| Método      | Propósito típico                                 | Ejemplo de ruta      |
-| ----------- | ------------------------------------------------ | -------------------- |
-| **GET**     | Leer/Solicitar un recurso                        | `GET /usuarios`      |
-| **POST**    | Crear un nuevo recurso                           | `POST /usuarios`     |
-| **PUT**     | Reemplazar totalmente un recurso                 | `PUT /usuarios/3`    |
-| **PATCH**   | Actualizar parcialmente un recurso               | `PATCH /usuarios/3`  |
-| **DELETE**  | Eliminar un recurso                              | `DELETE /usuarios/3` |
-| **HEAD**    | Igual que GET, pero sin body (solo headers)      | `HEAD /usuarios`     |
-| **OPTIONS** | Consultar qué métodos/headers admite el endpoint | `OPTIONS /usuarios`  |
+| Método      | Propósito típico                                              | Ejemplo de ruta      | Idempotente |
+| ----------- | ------------------------------------------------------------- | -------------------- | ----------- |
+| **GET**     | Leer/Solicitar un recurso                                     | `GET /usuarios`      | ✅ Sí       |
+| **POST**    | Crear un nuevo recurso                                        | `POST /usuarios`     | ❌ No\*     |
+| **PUT**     | Reemplazar **totalmente** un recurso (o crearlo si no existe) | `PUT /usuarios/3`    | ✅ Sí       |
+| **PATCH**   | Actualizar **parcialmente** un recurso                        | `PATCH /usuarios/3`  | ✅ Sí       |
+| **DELETE**  | Eliminar un recurso                                           | `DELETE /usuarios/3` | ✅ Sí       |
+| **HEAD**    | Igual que GET, pero sin body (solo headers)                   | `HEAD /usuarios`     | ✅ Sí       |
+| **OPTIONS** | Consultar qué métodos/headers admite el endpoint              | `OPTIONS /usuarios`  | ✅ Sí       |
 
-En Node.js el método llega en la propiedad `req.method`.
+\* POST **normalmente no es idempotente**: cada llamada suele crear un nuevo recurso (p. ej. un nuevo ID y `createdAt`). Sin embargo, **puede serlo** si se diseña con un identificador único proporcionado por el cliente (por ejemplo, POST `/transferencias/123-456` con idempotency-key).
+
+En **Node.js** el método llega en la propiedad `req.method`.
 
 ---
 
