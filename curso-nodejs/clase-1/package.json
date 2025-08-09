@@ -1,23 +1,6 @@
 {
   "name": "curso-node",
   "version": "1.0.0",
-  "description": "El mejor curso de Node por 0€",
-  "keywords": [
-    "curso",
-    "node",
-    "nodejs",
-    "midudev"
-  ],
-  "homepage": "https://github.com/araldev/cursos#readme",
-  "bugs": {
-    "url": "https://github.com/araldev/cursos/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/araldev/cursos.git"
-  },
-  "license": "ISC",
-  "author": "Miguel Ángel Durán García",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
