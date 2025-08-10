@@ -117,9 +117,9 @@ app.options('/movies/:id', (req, res) => {
   if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
     res.header('Access-Control-Allow-Origin', origin)
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE')
+    return res.sendStatus(204)
   }
-
-  res.sendStatus(204)
+  return res.status(403).send()
 })
 
 app.use((req, res) => {

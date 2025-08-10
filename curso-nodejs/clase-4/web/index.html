@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probar API Rest</title>
+  <style>
+    *, *::after, *::before {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      color-scheme: light dark;
+    }
+
+    body {
+      padding: 10%;
+      height: auto;
+      width: 100%;
+      max-width: 100%;
+      background-color: #111717;
+    }
+
+    main {
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    article{
+      border: 1px solid #ddd;
+      padding: 1rem;
+      width: 400px;
+      height: 600px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    img {
+      width: 320px;
+      height: auto;
+      max-height: 400px;
+      max-width: 100%;
+    }
+  </style>
+  <script type="module">
+    fetch("http://localhost:1234/movies")
+      .then(res => res.json())
+      .then(movies => {
+        const html = movies.map(movie => {
+          return `
+            <article data-id="${movie.id}">
+              <h2>${movie.title}</h2>  
+              <img src="${movie.poster}" alt="${movie.title}">
+              <p>${movie.year}</p>
+
+              <button>Eliminar</button>
+            </article>
+          `
+        }).join("")
+
+        document.querySelector('main').innerHTML = html
+
+        document.addEventListener('click', e => {
+          if (e.target.matches('button')) {
+            const article = e.target.closest('article')
+            const {id} = article.dataset
+            
+            fetch(`http://localhost:1234/movies/${id}`, {
+              method: 'DELETE'
+            }).then(res => {
+                if (res.ok) {
+                  article.remove()
+                }
+              }).catch(err => {
+                console.error(err)
+
+                const pError = document.createElement('p')
+                pError.innerText = 'Error al borrar la película'
+
+                const article = document.querySelector(`article[data-id="${id}"]`)
+                const p = article.querySelector('p')
+                
+                p.insertAdjacentElement('afterend', pError)
+              })
+          }
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+        document.querySelector('main').innerHTML = '<p>Error al cargar películas</p>';
+      })
+  </script>
+</head>
+<body>
+  <main></main>
+</body>
+</html>

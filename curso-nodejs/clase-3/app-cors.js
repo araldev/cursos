@@ -24,7 +24,7 @@ app.use(cors({
       return callback(null, true)
     }
 
-    return callback(new Error('Not allowed bu CORS'))
+    return callback(new Error('Not allowed by CORS'))
   }
 }))
 app.disable('x-powered-by')
@@ -34,8 +34,8 @@ app.use(express.json())
 // métodos normales: GET/HEAD/POST
 // métodos complejos: PUT/PATCH/DELETE
 
-// CORS PRE-Flight
-// OPTIONS
+// CORS PRE-Flight   <---- !!! para los métodos complejos
+// OPTIONS           <---- !!! para los métodos complejos
 
 // Todos los recursos que sean MOVIES se identifican con /movies
 app.get('/movies', (req, res) => {
