@@ -174,6 +174,9 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS decrease_follower_count;
 
+-- NEW → para INSERT y UPDATE (datos que entran).
+-- OLD → para DELETE y UPDATE (datos que salen o cambian).
+
 DELIMITER $$ 
 
 CREATE TRIGGER decrease_follower_count
@@ -182,7 +185,7 @@ FOR EACH ROW
 BEGIN
   UPDATE users
   SET follower_count = follower_count - 1
-  WHERE user_id = NEW.following_id; 
+  WHERE user_id = OLD.following_id; -- OLD = ÚLTIMO elemlento eliminado 
 END$$
     
 DELIMITER ;
