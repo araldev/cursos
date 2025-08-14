@@ -11,7 +11,7 @@ taskkill /F /IM mysqld.exe >nul 2>&1
 timeout /t 2 /nobreak >nul
 
 :: Ruta de Dbngin (ajústala si es necesario)
-set DBNGIN_PATH="C:\Users\user\ruta\archivo.exe"
+set DBNGIN_PATH="C:\Users\artur\AppData\Roaming\DBngin\dbngin-go.exe"
 
 echo Reiniciando Dbngin...
 start "" %DBNGIN_PATH%
