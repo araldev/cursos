@@ -13,11 +13,34 @@ const connection = await mysql.createConnection(config)
 
 export class MovieModel {
   static async getAll ({ genre }) {
-    const result = await connection.query(
+    if (genre) {
+      const lowerCaseGenre = genre.toLowerCase()
+
+      // get genre ids from database table using genre names
+      const [genres] = await connection.query(
+        'SELECT genre_id, genre FROM genres WHERE LOWER(genre) = ?;', [lowerCaseGenre]
+      )
+
+      // no genre found
+      if (genres.length === 0) return []
+
+      // get the id from the first genre result
+      // const [{ genre_id }] = genres
+
+      // get all movies ids from databa table
+      // la query a movie_genres
+      // join
+      // y devolver resultados
+      return [] // para que no pete mientras
+    }
+
+    // Si no destructuramos el objeto que devuelve la query es un Array de 2 posiciones:
+    // 1ª la consulta, 2ª el schema sql
+    const [movies] = await connection.query(
       'SELECT * FROM movies_with_genres;'
     )
 
-    console.log(result)
+    return movies
   }
 
   static async getById ({ id }) {
