@@ -44,7 +44,16 @@ export class MovieModel {
   }
 
   static async getById ({ id }) {
+    const [movie] = await connection.query(
+      `SELECT *
+      FROM movies_with_genres
+      WHERE movie_id = ?;`,
+      [id]
+    )
 
+    if (movie.length === 0) return null
+
+    return movie[0]
   }
 
   static async create ({ input }) {
