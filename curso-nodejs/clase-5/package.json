@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "node --watch ./app.js"
+    "start:local": "node --watch server-with-local.js",
+    "start:mongodb": "node --watch server-with-mongodb.js",
+    "start:mysql": "node --watch server-with-mysql.js "
   },
   "keywords": [],
   "author": "",

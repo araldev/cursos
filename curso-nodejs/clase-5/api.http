@@ -26,8 +26,7 @@ Content-Type: application/json
 
 ### Actualizar una película
 ### !!! Como no validamos la id con zod no se modifica !!!
-PATCH http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
-Content-Type: application/json
+PATCH http://localhost:1234/movies/4e0153b4-19b7-f42f-b21a-8c760c211f97
 
 {
   "id": "123", 
@@ -36,4 +35,4 @@ Content-Type: application/json
 }
 
 ### Borrar una película
-DELETE http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+DELETE http://localhost:1234/movies/43443c64-7b0a-924d-8d26-719b2a5a44e0

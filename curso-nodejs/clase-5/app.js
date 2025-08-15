@@ -1,6 +1,6 @@
 import express, { json } from 'express'
 import { corsMiddleware } from './middlewares/cors.js'
-import { moviesRouter } from './routes/movies.js'
+import { createMoviesRouter } from './routes/movies.js'
 
 // // como leer un JSON en ESModules
 // import fs from 'node:fs'
@@ -19,20 +19,22 @@ import { moviesRouter } from './routes/movies.js'
 // import { readJSON } from './utils.js'
 // const movies = readJSON('./movies.json')
 
-const app = express()
-app.use(corsMiddleware())
-app.disable('x-powered-by')
-app.use(json())
+export const createApp = ({ movieModel }) => {
+  const app = express()
+  app.use(corsMiddleware())
+  app.disable('x-powered-by')
+  app.use(json())
 
-// Todos los recursos que sean MOVIES se identifican con /movies
-app.use('/movies', moviesRouter)
+  // Todos los recursos que sean MOVIES se identifican con /movies
+  app.use('/movies', createMoviesRouter({ movieModel }))
 
-app.use((req, res) => {
-  res.status(404).send('<h1>404 Not Found</h1>')
-})
+  app.use((req, res) => {
+    res.status(404).send('<h1>404 Not Found</h1>')
+  })
 
-const PORT = process.env.PORT ?? 1234
+  const PORT = process.env.PORT ?? 1234
 
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto: http://localhost:${PORT}`)
-})
+  app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto: http://localhost:${PORT}`)
+  })
+}
