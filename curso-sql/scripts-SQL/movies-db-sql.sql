@@ -24,8 +24,8 @@ CREATE TABLE genres (
 CREATE TABLE movie_genres (
 	movie_id BINARY(16) NOT NULL,
     genre_id INT NOT NULL,
-    FOREIGN KEY(movie_id) REFERENCES movies(movie_id),
-    FOREIGN KEY (genre_id) REFERENCES genres(genre_id) ON DELETE CASCADE,
+    FOREIGN KEY(movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (genre_id) REFERENCES genres(genre_id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY(movie_id, genre_id)
 );
 
@@ -63,7 +63,23 @@ INSERT INTO movie_genres (movie_id, genre_id)
         -- Vista para mostrar películas con géneros
 CREATE VIEW movies_with_genres AS
 SELECT 
-	BIN_TO_UUID(m.movie_id), -- Para recuperar el id en string y no en BINARY
+	BIN_TO_UUID(m.movie_id) AS movie_id, -- Para recuperar el id en string y no en BINARY
+    m.title,
+    m.year,
+    m.director,
+    m.duration,
+    m.poster,
+    m.rate,
+    GROUP_CONCAT(g.genre ORDER BY g.genre ASC SEPARATOR ', ') AS genres
+FROM movies m
+JOIN movie_genres mg ON m.movie_id = mg.movie_id
+JOIN genres g ON mg.genre_id = g.genre_id
+GROUP BY m.movie_id;
+
+-- Si ya existe el VIEW lo modificamos así
+CREATE OR REPLACE VIEW movies_with_genres AS
+SELECT 
+	BIN_TO_UUID(m.movie_id) AS movie_id, -- Para recuperar el id en string y no en BINARY
     m.title,
     m.year,
     m.director,
