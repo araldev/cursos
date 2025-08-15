@@ -9,6 +9,16 @@ const config = {
   database: 'movies_db'
 }
 
+// Usar un pool de conexiones (recomendado para apps que hacen muchas queries)
+// const pool = mysql.createPool(config);
+// const connection = await pool.getConnection();
+
+// try {
+//   const [genreId] = await connection.query(...);
+// } finally {
+//   connection.release(); // ✅ devuelve la conexión al pool sin cerrarla
+// }
+
 const connection = await mysql.createConnection(config)
 
 export class MovieModel {
@@ -78,6 +88,8 @@ export class MovieModel {
       if (error) throw new Error('La película ya existe')
       // Enviar la traza a un servicio interno
       // Ej: Sendlog(error)
+    } finally {
+      connection.end()
     }
 
     const genresId = []
@@ -98,6 +110,8 @@ export class MovieModel {
         genresId.push(genreIdParse)
       } catch (error) {
         if (error) throw new Error('No existe el género')
+      } finally {
+        connection.end()
       }
     })
 
@@ -109,6 +123,8 @@ export class MovieModel {
       )
     } catch (error) {
       if (error) throw new Error('No se pudo añadir la película')
+    } finally {
+      connection.end()
     }
 
     try {
@@ -121,6 +137,8 @@ export class MovieModel {
       })
     } catch (error) {
       if (error) throw new Error('No se pudo añadir género a la película')
+    } finally {
+      connection.end()
     }
 
     return { message: 'Añadiste la película' }
