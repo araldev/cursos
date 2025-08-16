@@ -1,7 +1,7 @@
 import mysql from 'mysql2/promise'
 import 'dotenv/config'
 
-const config = {
+const DEFAULT_CONFIG = {
   host: '172.24.32.1', // al tener la db en window y hacer la peticion en wsl no puedo acceder por socket o con localhost
   port: 3306,
   user: 'arturo',
@@ -9,8 +9,10 @@ const config = {
   database: 'movies_db'
 }
 
+const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
+
 // Usar un pool de conexiones (recomendado para apps que hacen muchas queries)
-// const pool = mysql.createPool(config);
+// const pool = mysql.createPool(connectionString);
 // const connection = await pool.getConnection();
 
 // try {
@@ -19,7 +21,7 @@ const config = {
 //   connection.release(); // ✅ devuelve la conexión al pool sin cerrarla
 // }
 
-const connection = await mysql.createConnection(config)
+const connection = await mysql.createConnection(connectionString)
 
 export class MovieModel {
   static async getAll ({ genre }) {
