@@ -9,7 +9,8 @@
     "midudev"
   ],
   "workspaces": [
-    "clase-*"
+    "clase-*",
+    "user-auth"
   ],
   "homepage": "https://github.com/araldev/cursos#readme",
   "bugs": {
