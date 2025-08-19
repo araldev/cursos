@@ -1,94 +1,44 @@
 import express from 'express'
-import jwt from 'jsonwebtoken'
 import cookieParser from 'cookie-parser'
+import morgan from 'morgan'
 import 'dotenv/config'
 import { PORT } from './config.js'
-import { UserRepository } from './user-repository.js'
+import { AuthController } from './controllers/auth.js'
+import { authMiddleware, requireAuth } from './middlewares/auth.js'
 
 const app = express()
 app.disable('x-powered-by')
 
 app.set('view engine', 'ejs')
 
+// Morgan para desarrollo
+if (process.env.NODE_ENV !== 'production') {
+  app.use(morgan('dev'))
+}
+
+// Middleware de autenticación global
 app.use(express.json())
 app.use(cookieParser())
+app.use(authMiddleware)
 
-app.use((req, res, next) => {
-  const token = req.cookies.access_token
-  req.session = { user: null }
-
-  try {
-    const data = jwt.verify(token, process.env.SECRET_KEY)
-    req.session.user = data
-  } catch {}
-
-  next() //  ---> seguir a la siguiente ruta o middleware
-})
-
+// Rutas públicas
 app.get('/', (req, res) => {
   const { user } = req.session
-  res.render('index', user)
+  console.log('🏠 Ruta /: user =', user)
+  res.render('index', { user, username: user?.username })
 })
 
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body
+// Rutas de autenticación
+app.post('/register', AuthController.register)
+app.post('/login', AuthController.login)
+app.post('/logout', AuthController.logout)
 
-  try {
-    const user = await UserRepository.login({ username, password })
-    const token = jwt.sign(
-      { id: user._id, username: user.username },
-      process.env.SECRET_KEY,
-      {
-        expiresIn: '1h'
-      })
-    // Hay que generar una nueva cookie que vaya creando un nuevo
-    // access_token mientras se navegue en la página
-    // const refreshToken = jwt.sign(
-    //   { id: user._id, username: user.username },
-    //   process.env.SECRET_KEY,
-    //   {
-    //     expiresIn: '7d'
-    //   })
-    if (user) {
-      return res
-        .cookie('access_token', token, {
-          httpOnly: true, // la cookie solo se puede acceder en el servidor, no por javascript
-          secure: process.env.NODE_ENV === 'production', // solo se puede acceder a la cookie en HTTPS cuando estemos en producción
-          sameSite: 'strict', // la cookie solo se envía en solicitudes del mismo dominio
-          maxAge: 1000 * 60 * 60 // la cookie tiene un tiempo de validez de 1 hora
-        })
-        .send({ user, token })
-    }
-  } catch (error) {
-    res.status(401).send(error.message)
-  }
-})
-
-app.post('/register', async (req, res) => {
-  const { username, password } = req.body
-
-  try {
-    const id = await UserRepository.create({ username, password })
-    res.send({ id })
-  } catch (error) {
-    // NORMALMENTE NO ES BUENA IDEA MANDAR EL ERROR DEL REPOSITORIO
-    res.status(400).send(error.message)
-  }
-})
-app.post('/logout', (req, res) => {
-  res
-    .clearCookie('access_token')
-    .json({ message: 'Logout successful' })
-})
-
-app.get('/protected', (req, res) => {
+// Rutas protegidas
+app.get('/protected', requireAuth, (req, res) => {
   const { user } = req.session
-  if (!user) {
-    return res.status(403).send('Access not authorized')
-  }
-  res.render('protected', user) //  { _id, username }
+  res.render('protected', { user, username: user.username, id: user.id })
 })
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
+  console.log(`🚀 Server running on http://localhost:${PORT}`)
 })

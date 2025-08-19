@@ -1,0 +1,10 @@
+[
+  {
+    "userId": "adc5e3f3-d58b-40c6-a258-2fe1d9cd7a8b",
+    "username": "arturo",
+    "_id": "336bf8c2-531e-405d-a1d7-2fd916488670",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkYzVlM2YzLWQ1OGItNDBjNi1hMjU4LTJmZTFkOWNkN2E4YiIsInVzZXJuYW1lIjoiYXJ0dXJvIiwiaWF0IjoxNzU1NjMyMTg4LCJleHAiOjE3NTYyMzY5ODh9.M4F_zHDs0MG0_wJ573F2qbTa90J2hOTcdJbPstf6O6w",
+    "expiresAt": 1756236988000,
+    "revoke": false
+  }
+]

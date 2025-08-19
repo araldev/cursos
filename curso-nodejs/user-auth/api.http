@@ -1,0 +1,17 @@
+### Register
+POST  http://localhost:2341/register
+Content-Type: application/json
+
+{
+  "username": "arturo",
+  "password": "123456"
+}
+
+### Login
+POST  http://localhost:2341/login
+Content-Type: application/json
+
+{
+  "username": "arturo",
+  "password": "123456"
+}
